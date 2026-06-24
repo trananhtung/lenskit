@@ -56,14 +56,14 @@ declare function optional<S, A>(get: (s: S) => A | undefined, set: (s: S, a: A) 
  */
 declare function prop<S extends object, K extends keyof S>(key: K): Lens<S, S[K]>;
 /**
- * Create a Lens for an index in a readonly array.
+ * Create an Optional for an element at index i in an array.
  * set() replaces the element at that index; does NOT mutate.
  */
-declare function index<A>(i: number): Optional<ReadonlyArray<A>, A>;
+declare function index<A>(i: number): Optional<A[], A>;
 /**
  * Create an Optional for an array element matching a predicate (first match).
  */
-declare function find<A>(predicate: (a: A) => boolean): Optional<ReadonlyArray<A>, A>;
+declare function find<A>(predicate: (a: A) => boolean): Optional<A[], A>;
 /**
  * Traversal<S, A> — focuses on zero or more A values inside S.
  * Like a Lens that works on every element of a collection.

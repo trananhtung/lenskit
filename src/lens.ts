@@ -212,14 +212,14 @@ export function prop<S extends object, K extends keyof S>(key: K): Lens<S, S[K]>
 }
 
 /**
- * Create a Lens for an index in a readonly array.
+ * Create an Optional for an element at index i in an array.
  * set() replaces the element at that index; does NOT mutate.
  */
-export function index<A>(i: number): Optional<ReadonlyArray<A>, A> {
+export function index<A>(i: number): Optional<A[], A> {
   return optional(
     arr => arr[i],
     (arr, a) => {
-      const copy = [...arr] as A[];
+      const copy = [...arr];
       copy[i] = a;
       return copy;
     }
@@ -229,13 +229,13 @@ export function index<A>(i: number): Optional<ReadonlyArray<A>, A> {
 /**
  * Create an Optional for an array element matching a predicate (first match).
  */
-export function find<A>(predicate: (a: A) => boolean): Optional<ReadonlyArray<A>, A> {
+export function find<A>(predicate: (a: A) => boolean): Optional<A[], A> {
   return optional(
     arr => arr.find(predicate),
     (arr, a) => {
       const i = arr.findIndex(predicate);
       if (i === -1) return arr;
-      const copy = [...arr] as A[];
+      const copy = [...arr];
       copy[i] = a;
       return copy;
     }
